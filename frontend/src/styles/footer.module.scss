@@ -1,0 +1,20 @@
+$mainBlue: #072ac8;
+$mainYellow: #fcf300;
+$lightBlue: #1e96fc;
+$darkYellow: #ffc600;
+
+.box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-top: 1px solid lightgrey;
+  height: 100%;
+  p {
+    margin-left: 20px;
+    align-self: center;
+  }
+
+  p:hover {
+    color: $mainBlue;
+  }
+}

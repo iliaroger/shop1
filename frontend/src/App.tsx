@@ -1,12 +1,16 @@
-import './styles/app.scss';
+import React from 'react';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import ProductsView from './views/ProductsView';
 
-function App() {
+function App(): JSX.Element {
   return (
-    <div>
-      <div>
-        <h1>Hello world!</h1>
-      </div>
-    </div>
+    <React.Fragment>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={ProductsView}></Route>
+        </Switch>
+      </BrowserRouter>
+    </React.Fragment>
   );
 }
 

@@ -1,0 +1,36 @@
+/* basic layout styles */
+$mainBlue: #072ac8;
+$mainYellow: #fcf300;
+$lightBlue: #1e96fc;
+$darkYellow: #ffc600;
+
+.menuBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.menuLeftBox {
+  display: flex;
+
+  h2 {
+    margin-left: 20px;
+    color: $mainBlue;
+  }
+}
+
+.menuRightBox {
+  display: flex;
+  margin-right: 30px;
+  .link {
+    margin-right: 20px;
+    align-self: center;
+    text-decoration: none;
+    color: $mainBlue;
+    transition: 0.3s;
+  }
+  .link:hover {
+    text-decoration: underline;
+    transition: 0.3s;
+  }
+}

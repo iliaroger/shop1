@@ -1,0 +1,51 @@
+export const products = [
+  {
+    productName: 'Adidas Tankieez',
+    productId: 18829,
+    productRelease: '6/2022',
+    productPrice: 50,
+    productUrl: '/images/img1.jpg',
+  },
+  {
+    productName: 'Adidas Gearah',
+    productId: 82029,
+    productRelease: '8/2022',
+    productPrice: 120,
+    productUrl: '/images/img2.jpg',
+  },
+  {
+    productName: 'Jiral Hanae',
+    productId: 90284,
+    productRelease: '5/2022',
+    productPrice: 80,
+    productUrl: '/images/img3.jpg',
+  },
+  {
+    productName: 'Nike Olaf Olafson',
+    productId: 87233,
+    productRelease: '12/2022',
+    productPrice: 140,
+    productUrl: '/images/img4.jpg',
+  },
+  {
+    productName: 'True Fame: Lowkrez',
+    productId: 92384,
+    productRelease: '4/2022',
+    productPrice: 80,
+    productUrl: '/images/img5.jpg',
+  },
+  {
+    productName: 'Adidas Kniaos',
+    productId: 90298,
+    productRelease: '8/2022',
+    productPrice: 40,
+    productUrl: '/images/img6.jpg',
+  },
+  {
+    productName: 'Adidas HU-9092',
+    productId: 39289,
+    productRelease: '7/2022',
+    productPrice: 190,
+    productUrl: '/images/img7.jpg',
+  },
+];

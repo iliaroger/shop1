@@ -1,0 +1,24 @@
+/* basic layout styles */
+$mainBlue: #072ac8;
+$mainYellow: #fcf300;
+$lightBlue: #1e96fc;
+$darkYellow: #ffc600;
+
+.box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+}
+
+.item {
+  width: 50%;
+  height: 50%;
+  align-self: center;
+  border: 1px solid lightgray;
+  border-radius: 2px;
+
+  h2 {
+    text-align: center;
+  }
+}

@@ -1,4 +1,4 @@
-export const products = [
+module.exports.products = [
   {
     productName: 'Adidas Tankieez',
     productId: 18829,

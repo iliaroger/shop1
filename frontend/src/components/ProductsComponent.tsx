@@ -3,6 +3,7 @@ import styles from '../styles/productsComponent.module.scss';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { productsAction } from '../actions/productActions';
+import { useHistory } from 'react-router-dom';
 
 interface Productdata {
   productName: string;
@@ -13,6 +14,7 @@ interface Productdata {
 }
 
 export default function ProductsComponent(): JSX.Element {
+  const history = useHistory();
   const dispatch = useDispatch();
   const productList = useSelector((state: any) => state.productList);
   const { loading, products } = productList;
@@ -40,7 +42,16 @@ export default function ProductsComponent(): JSX.Element {
                     <h6>{el.productName}</h6>
                     <p>{`Release: ${el.productRelease}`}</p>
                     <p>{`Price: ${el.productPrice}$`}</p>
-                    <button>Add to Cart</button>
+                    <div className={styles.buttonWrapper}>
+                      <button>Add to Cart</button>
+                      <button
+                        onClick={() => {
+                          history.push(`/product/${el.productId}`);
+                        }}
+                      >
+                        View Item
+                      </button>
+                    </div>
                   </div>
                 </React.Fragment>
               );

@@ -1,0 +1,14 @@
+
+frontend:
+
+1.
+
+- click on item -> action will dispatch request to the server 
+-> server will retrieve the desired item -> item will be stored in redux store
+-> on cart select -> redux store will display the stored items in the view
+
+2. 
+
+- click on item -> action will dispatch request to server to retrieve selected item 
+
+backend:

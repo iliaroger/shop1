@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/cartView.module.scss';
+import styles from '../styles/grid.module.scss';
 import Menu from '../components/MenuComponent';
 import Footer from '../components/FooterComponent';
 import Cart from '../components/CartComponent';

@@ -9,16 +9,74 @@ $darkYellow: #ffc600;
   flex-direction: row;
   justify-content: center;
   height: 100%;
+  width: 100%;
 }
 
-.item {
-  width: 50%;
-  height: 50%;
-  align-self: center;
+.centerBox {
   border: 1px solid lightgray;
-  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  align-self: center;
+  width: 50%;
+  overflow-y: scroll;
+}
 
-  h2 {
+.orderBox {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.orderHeader {
+  align-self: center;
+}
+
+.orderItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-top: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
+  margin-bottom: 10px;
+  p {
+    max-width: 30%;
+    overflow: hidden;
+  }
+  button {
+    height: 50%;
+    align-self: center;
+  }
+}
+
+.checkoutPrice {
+  font-size: 2rem;
+}
+
+.checkoutBox {
+  margin-left: 150px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+
+  .buttonGroup {
     text-align: center;
+
+    button {
+      background-color: white;
+      border: 1px solid lightgrey;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      color: $mainBlue;
+      border: 1px solid $mainBlue;
+    }
+
+    button:focus {
+      outline: none;
+    }
   }
 }

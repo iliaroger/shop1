@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { productsAction } from '../actions/productActions';
 import { useHistory } from 'react-router-dom';
+import { cartAction } from '../actions/cartActions';
 
 interface Productdata {
   productName: string;
@@ -16,6 +17,7 @@ interface Productdata {
 export default function ProductsComponent(): JSX.Element {
   const history = useHistory();
   const dispatch = useDispatch();
+  const productQuantity = 1;
   const productList = useSelector((state: any) => state.productList);
   const { loading, products } = productList;
 
@@ -27,7 +29,7 @@ export default function ProductsComponent(): JSX.Element {
     <React.Fragment>
       <div className={styles.box}>
         {loading ? (
-          <p>Loading data...</p>
+          <p>Loading...</p>
         ) : (
           <>
             {products.map((el: Productdata) => {
@@ -43,7 +45,19 @@ export default function ProductsComponent(): JSX.Element {
                     <p>{`Release: ${el.productRelease}`}</p>
                     <p>{`Price: ${el.productPrice}$`}</p>
                     <div className={styles.buttonWrapper}>
-                      <button>Add to Cart</button>
+                      <button
+                        onClick={() => {
+                          dispatch(
+                            cartAction(
+                              el.productId,
+                              productQuantity,
+                              el.productPrice
+                            )
+                          );
+                        }}
+                      >
+                        Add to Cart
+                      </button>
                       <button
                         onClick={() => {
                           history.push(`/product/${el.productId}`);

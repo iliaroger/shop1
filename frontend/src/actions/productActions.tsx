@@ -7,7 +7,6 @@ import {
   PRODUCT_FAIL,
 } from '../constants/productConstants';
 import axios from 'axios';
-import Axios from 'axios';
 
 export const productsAction = () => async (dispatch: any) => {
   dispatch({
@@ -38,7 +37,7 @@ export const productDetailAction = (productId: number) => async (
   });
   try {
     setTimeout(() => {
-      Axios.get(`/api/product/${productId}`).then((data) => {
+      axios.get(`/api/product/${productId}`).then((data) => {
         dispatch({
           type: PRODUCT_SUCCESS,
           payload: data.data[0],

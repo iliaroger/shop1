@@ -11,20 +11,23 @@ export default function DetailedProductComponent({ props }: any): JSX.Element {
   useEffect(() => {
     const productId = props.match.params.id;
     dispatch(productDetailAction(productId));
+    console.log(productData);
   }, []);
+
   return (
     <div className={styles.box}>
       {loading ? (
         <>
-          <h2 className={styles.loadingSpinner}>Loading...</h2>
+          <p className={styles.loadingSpinner}>Loading...</p>
         </>
       ) : (
         <>
           <div className={styles.detailBox}>
             <img src={product.productUrl} alt={product.productName}></img>
             <h3>{product.productName}</h3>
+            <p>{product.productDescription}</p>
             <p>{`Price: ${product.productPrice}$`}</p>
-            <button>Buy</button>
+            <button>Add to cart</button>
           </div>
         </>
       )}

@@ -1,5 +1,8 @@
 import {
   CART_FAIL,
+  CART_GET_FAIL,
+  CART_GET_REQUEST,
+  CART_GET_SUCCESS,
   CART_REQUEST,
   CART_SUCCESS,
 } from '../constants/cartConstants';
@@ -29,16 +32,16 @@ export const getCartReducer = (
   action: any
 ) => {
   switch (action.type) {
-    case CART_REQUEST:
+    case CART_GET_REQUEST:
       return { loading: true };
 
-    case CART_SUCCESS:
+    case CART_GET_SUCCESS:
       return {
         loading: false,
-        cartData: action.payload,
+        cartData: action.payload.data,
       };
 
-    case CART_FAIL:
+    case CART_GET_FAIL:
       return {
         loading: false,
         error: action.payload,

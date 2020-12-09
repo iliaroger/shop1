@@ -23,6 +23,7 @@ export default function ProductsComponent(): JSX.Element {
 
   useEffect(() => {
     dispatch(productsAction());
+    console.log(products);
   }, []);
 
   return (

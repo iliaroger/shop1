@@ -13,16 +13,17 @@ interface ICartData {
 export default function CartComponent() {
   const dispatch = useDispatch();
   const cartState = useSelector((state: any) => state.getCartList);
-  const { loading, cartData, error } = cartState;
+  const { loading, cartData } = cartState;
+  let totalPrice = 0;
   useEffect(() => {
-    dispatch(getCart);
-    console.log(cartState);
+    dispatch(getCart());
   }, []);
 
   const calculateFullPrice = (
     elementPrice: number,
     elementQuantity: number
   ) => {
+    totalPrice += elementPrice * elementQuantity;
     return elementPrice * elementQuantity;
   };
   return (
@@ -44,12 +45,10 @@ export default function CartComponent() {
                       <p>Quantity: {el.productQuantity}</p>
                       <p>
                         Total Price:{' '}
-                        {() => {
-                          calculateFullPrice(
-                            el.productPrice,
-                            el.productQuantity
-                          );
-                        }}
+                        {calculateFullPrice(
+                          el.productPrice,
+                          el.productQuantity
+                        )}
                         $
                       </p>
                       <button>Cancel</button>
@@ -64,7 +63,9 @@ export default function CartComponent() {
         </div>
         <div className={styles.checkoutBox}>
           <h2>Checkout:</h2>
-          <p className={styles.checkoutPrice}>Total Price: 9023$</p>
+          <p
+            className={styles.checkoutPrice}
+          >{`Total Price: ${totalPrice}$`}</p>
           <p>Pay with: </p>
           <div className={styles.buttonGroup}>
             <button>Pay with Paypal</button>

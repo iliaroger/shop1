@@ -28,10 +28,10 @@ const productHandler = (req, res) => {
 const cartHandler = (req, res) => {
   try {
     const cartData = fs.readFileSync(
-      path.join(__dirname, '../data/cardData.json')
+      path.join(__dirname, '../data/cartData.json')
     );
     const processedData = JSON.parse(cartData);
-    res.send('DIODJIOADDI');
+    res.send(processedData);
   } catch (err) {
     res.send(err.message);
   }

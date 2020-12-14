@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const productData = require('../data/productsData.js');
 
 const productsHandler = (req, res) => {
   try {
@@ -27,9 +26,9 @@ const productHandler = (req, res) => {
 
 const cartHandler = (req, res) => {
   try {
-    const cartData = fs.readFileSync(
-      path.join(__dirname, '../data/cartData.json')
-    );
+    // const cartData = fs.readFileSync(
+    //   path.join(__dirname, '../data/cartData.json')
+    // );
     const processedData = JSON.parse(cartData);
     res.send(processedData);
   } catch (err) {

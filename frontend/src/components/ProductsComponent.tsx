@@ -4,11 +4,11 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { productsAction } from '../actions/productActions';
 import { useHistory } from 'react-router-dom';
-import { cartAction } from '../actions/cartActions';
+import { postCartItem } from '../actions/cartActions';
 
 interface Productdata {
   productName: string;
-  productId: number;
+  _id: number;
   productRelease: string;
   productPrice: number;
   productUrl: string;
@@ -17,13 +17,11 @@ interface Productdata {
 export default function ProductsComponent(): JSX.Element {
   const history = useHistory();
   const dispatch = useDispatch();
-  const productQuantity = 1;
   const productList = useSelector((state: any) => state.productList);
   const { loading, products } = productList;
 
   useEffect(() => {
     dispatch(productsAction());
-    console.log(products);
   }, []);
 
   return (
@@ -35,7 +33,7 @@ export default function ProductsComponent(): JSX.Element {
           <>
             {products.map((el: Productdata) => {
               return (
-                <React.Fragment key={el.productId}>
+                <React.Fragment key={el._id}>
                   <div className={styles.item}>
                     <img
                       src={process.env.PUBLIC_URL + el.productUrl}
@@ -48,20 +46,14 @@ export default function ProductsComponent(): JSX.Element {
                     <div className={styles.buttonWrapper}>
                       <button
                         onClick={() => {
-                          dispatch(
-                            cartAction(
-                              el.productId,
-                              productQuantity,
-                              el.productPrice
-                            )
-                          );
+                          dispatch(postCartItem(el._id));
                         }}
                       >
                         Add to Cart
                       </button>
                       <button
                         onClick={() => {
-                          history.push(`/product/${el.productId}`);
+                          history.push(`/product/${el._id}`);
                         }}
                       >
                         View Item

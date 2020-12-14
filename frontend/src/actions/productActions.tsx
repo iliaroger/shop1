@@ -37,10 +37,10 @@ export const productDetailAction = (productId: number) => async (
   });
   try {
     setTimeout(() => {
-      axios.get(`/api/product/${productId}`).then((data) => {
+      axios.get(`/api/products/${productId}`).then((data) => {
         dispatch({
           type: PRODUCT_SUCCESS,
-          payload: data.data[0],
+          payload: data.data,
         });
       });
     }, 1000);

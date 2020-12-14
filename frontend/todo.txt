@@ -1,2 +1,85 @@
-// post route doesnt work 
-// get route cant retrieve correct data
+// mongoose steps 
+- npm i mongoose
+- create schema for a collection -> 
+const userSchema = new mongoose.schema({
+    // id will automatically be generated
+    email: {type: String, required: true, unique: true}
+    name: {type: String, required: true}
+
+}, 
+{timestamps: true})
+
+const User = mongoose.model('User', userSchema);
+
+export default User;
+
+- create modular router path ->
+
+// getRoutes or userRoutes
+
+const userRoutes = express.Routes();
+
+import User from '..';
+
+userRoutes.get('/seed', async (req, res)=>{
+    const createdUsers = await User.insertMany([
+        {
+            name: 'Erikson'
+            email: 'leif@erikson.sw'
+        },
+        {
+            name: 'Lakju'
+            email: 'oie@suomi.us'
+        },
+    ])
+    res.send({createdUsers})
+})
+
+- connect to local mongodb cluster
+
+mongoose.connect('mongodb://localhost/<databaseName>'{
+    useNewUrlParser: true,
+    useUnifiedTypology: true,
+    useCreateIndex: true
+})
+
+- Modular routing in express
+ + create a .use route in the main route file
+ + export handlers to different files
+ + use one import name for different route files (userRoute -> userRoute.get/ userRoute.post etc.)
+ + those route will have a different path inside them: userRoute.get('/userProfile')
+
+
+- Async error catching 
++ npm i express-async-handler
+
+inside the route, wrap the handler with the async handler:
+
+import expressAsyncHandler from 'express-async-handler';
+
+userRouter.get('/getUsers', expressAsyncHandler(async (req,res)=>{
+    //route implementation
+})
+
++ in the main routing file add an use catch for the error handling:
+
+app.use((err, req, res, next)=>{
+    res.status(500).send({message: err.message})
+})
+
+
+- encrypt user password with bcrypt 
+
++ npm i bcryptjs
+
+user: {
+    password: bcrypt.hashSync('<UserPassword>', <number>)
+}
+
+the number parameter in the hashSync function is the amount of hashing applied to the password.
+a rule of thumb is to aim at time spend hasing and not rounds that the password is being hashed.
+if your server has enough processing power,
+then aim for around 240 milliseconds for hashing per password
+
+
+

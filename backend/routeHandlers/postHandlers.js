@@ -6,9 +6,9 @@ const cartHandler = (req, res) => {
     // get req data
     const requestData = req.body;
     // compare if req data is already in the json file
-    const processedData = fs.readFileSync(
-      path.join(__dirname, '../data/cartData.json')
-    );
+    // const processedData = fs.readFileSync(
+    //   path.join(__dirname, '../data/cartData.json')
+    // );
     const searchData = (fileData, requestData) => {
       const parsedFileData = JSON.parse(fileData);
       // add quantity to the data id object
@@ -25,14 +25,14 @@ const cartHandler = (req, res) => {
       });
     };
     // save new data to the file
-    const writeData = JSON.stringify(searchData(processedData, requestData));
-    fs.writeFile(
-      path.join(__dirname, '../data/cartData.json'),
-      writeData,
-      (err) => {
-        if (err) throw new Error(err);
-      }
-    );
+    // const writeData = JSON.stringify(searchData(processedData, requestData));
+    // fs.writeFile(
+    //   path.join(__dirname, '../data/cartData.json'),
+    //   writeData,
+    //   (err) => {
+    //     if (err) throw new Error(err);
+    //   }
+    // );
   } catch (err) {
     res.send('error encountered during read/write operation');
   }

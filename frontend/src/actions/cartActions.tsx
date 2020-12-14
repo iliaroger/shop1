@@ -8,11 +8,21 @@ import {
   CART_SUCCESS,
 } from '../constants/cartConstants';
 
-export const cartAction = (
-  productId: number,
-  quantity: number,
-  productPrice: number
-) => async (dispatch: any) => {
+const getCurrentTime = () => {
+  const currentDate = new Date();
+  const hours = currentDate.getHours();
+  const minuntes = currentDate.getMinutes();
+
+  if (hours < 10) {
+    return `0${hours}:${minuntes}`;
+  } else if (minuntes < 10) {
+    return `${hours}:0${minuntes}`;
+  } else if (hours && minuntes < 10) {
+    return `0${hours}:0${minuntes}`;
+  } else return `${hours}:${minuntes}`;
+};
+
+export const postCartItem = (productId: number) => async (dispatch: any) => {
   try {
     dispatch({
       type: CART_REQUEST,
@@ -20,11 +30,10 @@ export const cartAction = (
 
     await Axios({
       method: 'POST',
-      url: `/api/add/cart/${productId}`,
+      url: `/api/cart/${productId}`,
       data: {
         productId: productId,
-        productQuantity: quantity,
-        productPrice: productPrice,
+        productQuantity: 1,
       },
     })
       .then(() => {
@@ -41,6 +50,7 @@ export const cartAction = (
       payload: err.message,
     });
   }
+  localStorage.setItem('lastOnline', getCurrentTime());
 };
 
 export const getCart = () => async (dispatch: any) => {

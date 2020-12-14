@@ -5,7 +5,7 @@ import styles from '../styles/cartComponent.module.scss';
 import { getCart } from '../actions/cartActions';
 
 interface ICartData {
-  productId: number;
+  productName: string;
   productQuantity: number;
   productPrice: number;
 }
@@ -41,7 +41,7 @@ export default function CartComponent() {
                 if (el.productQuantity > 0) {
                   return (
                     <div key={i} className={styles.orderItem}>
-                      <p>Product: {i}</p>
+                      <p>{el.productName}</p>
                       <p>Quantity: {el.productQuantity}</p>
                       <p>
                         Total Price:{' '}

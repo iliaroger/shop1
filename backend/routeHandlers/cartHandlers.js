@@ -2,8 +2,22 @@ const express = require('express');
 const expressAsyncHandler = require('express-async-handler');
 const Cart = require('../model/cartModel.js');
 const Products = require('../model/productsModel.js');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const cartRouter = express.Router();
+
+cartRouter.post(
+  '/remove/:id',
+  expressAsyncHandler(async (req, res) => {
+    const itemId = req.params.id;
+    try {
+      await Cart.findOneAndRemove({ _id: itemId });
+      res.status(200).send('Item was removed');
+    } catch (err) {
+      res.status(500).send('Could not remove the item: ' + err);
+    }
+  })
+);
 
 cartRouter.post(
   '/:id',
@@ -11,7 +25,10 @@ cartRouter.post(
     const productId = req.params.id;
     try {
       const findProduct = await Products.findById(productId);
-      if (findProduct._id != productId) {
+      const productExists = await Cart.exists({
+        productName: findProduct.productName,
+      });
+      if (!productExists) {
         const cartDetails = {
           productName: findProduct.productName,
           productPrice: findProduct.productPrice,
@@ -19,15 +36,16 @@ cartRouter.post(
         };
         await Cart.insertMany(cartDetails);
       } else {
-        const cartProduct = await Cart.find({
+        const findCartProduct = await Cart.find({
           productName: findProduct.productName,
         });
-        const cartDetails = {
-          productName: cartProduct[0].productName,
-          productPrice: cartProduct[0].productPrice,
-          productQuantity: cartProduct[0].productQuantity + 1,
-        };
-        await Cart.updateOne({ _id: cartProduct[0]._id }, cartDetails);
+        await Cart.findOneAndUpdate(
+          { productName: findProduct.productName },
+          { $set: { productQuantity: findCartProduct[0].productQuantity + 1 } },
+          {
+            new: true,
+          }
+        );
       }
     } catch (err) {
       if (err) throw err;

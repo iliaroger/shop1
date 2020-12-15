@@ -13,6 +13,7 @@ mongoose.connect(uri, {
   autoIndex: true,
   useUnifiedTopology: true,
   useNewUrlParser: true,
+  useFindAndModify: false,
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));

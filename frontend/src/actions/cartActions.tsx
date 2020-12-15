@@ -17,7 +17,7 @@ const getCurrentTime = () => {
     return `0${hours}:${minuntes}`;
   } else if (minuntes < 10) {
     return `${hours}:0${minuntes}`;
-  } else if (hours && minuntes < 10) {
+  } else if (hours < 10 && minuntes < 10) {
     return `0${hours}:0${minuntes}`;
   } else return `${hours}:${minuntes}`;
 };
@@ -68,6 +68,27 @@ export const getCart = () => async (dispatch: any) => {
     dispatch({
       type: CART_GET_FAIL,
       payload: err.message,
+    });
+  }
+};
+
+export const removeItemFromCart = (cartId: number) => async (dispatch: any) => {
+  try {
+    dispatch({
+      type: CART_REQUEST,
+    });
+    await Axios({
+      method: 'POST',
+      url: `/api/cart/remove/${cartId}`,
+    }).then(() => {
+      dispatch({
+        type: CART_SUCCESS,
+      });
+    });
+  } catch (err) {
+    dispatch({
+      type: CART_FAIL,
+      data: err.message,
     });
   }
 };

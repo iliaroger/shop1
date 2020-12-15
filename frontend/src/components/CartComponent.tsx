@@ -2,12 +2,13 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../styles/cartComponent.module.scss';
-import { getCart } from '../actions/cartActions';
+import { getCart, removeItemFromCart } from '../actions/cartActions';
 
 interface ICartData {
   productName: string;
   productQuantity: number;
   productPrice: number;
+  _id: number;
 }
 
 export default function CartComponent() {
@@ -51,7 +52,16 @@ export default function CartComponent() {
                         )}
                         $
                       </p>
-                      <button>Cancel</button>
+                      <button
+                        onClick={() => {
+                          dispatch(removeItemFromCart(el._id));
+                          setTimeout(() => {
+                            dispatch(getCart());
+                          }, 500);
+                        }}
+                      >
+                        Cancel
+                      </button>
                     </div>
                   );
                 } else {

@@ -1,0 +1,57 @@
+const express = require('express');
+const expressAsyncHandler = require('express-async-handler');
+const profileHandler = express.Router();
+const User = require('../model/userModel.js');
+const bcrypt = require('bcryptjs');
+
+profileHandler.post(
+  '/register',
+  expressAsyncHandler(async (req, res) => {
+    try {
+      const { email, password, firstName, lastName } = req.body;
+      const userExists = await User.exists({ email: email });
+      console.log(userExists);
+      if (userExists) {
+        res.send('User is already registered. Please login to your account.');
+      } else {
+        const saltRounds = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(password, saltRounds);
+        await User.insertMany({
+          email: email,
+          password: hashPassword,
+          firstName: firstName,
+          lastName: lastName,
+        }).then(() => {
+          res.send('User successfully created!');
+        });
+      }
+    } catch (err) {
+      res
+        .status(500)
+        .send('An error occured during the user creation process: ' + err);
+    }
+  })
+);
+
+profileHandler.post(
+  '/login',
+  expressAsyncHandler(async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const checkForProfile = await User.exists({ email: email });
+      if (checkForProfile) {
+        const getProfile = await User.find({ email: email });
+        const hashedPassword = getProfile.password;
+        await bcrypt.compare(password, hashedPassword, (err, result) => {
+          if (result) {
+            res.send({ auth: true });
+          } else {
+            res.send({ auth: false });
+          }
+        });
+      }
+    } catch (err) {}
+  })
+);
+
+module.exports = profileHandler;

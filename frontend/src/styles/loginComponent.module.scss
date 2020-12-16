@@ -1,0 +1,70 @@
+/* basic layout styles */
+$mainBlue: #072ac8;
+$mainYellow: #fcf300;
+$lightBlue: #1e96fc;
+$darkYellow: #ffc600;
+
+.outerBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+}
+
+.box {
+  align-self: center;
+  h2 {
+    text-align: center;
+  }
+}
+
+.inlineElements {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  p {
+    text-align: center;
+    margin: 5px;
+  }
+  h4 {
+    text-align: center;
+    margin: 2px;
+    color: #072ac8;
+  }
+
+  h4:hover {
+    user-select: none;
+    cursor: pointer;
+  }
+
+  input {
+    align-self: center;
+    border-top: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid lightgray;
+  }
+
+  input:focus {
+    border-bottom: 1px solid $mainBlue;
+    outline: none;
+  }
+
+  button {
+    width: 80px;
+    height: 30px;
+    align-self: center;
+    margin-top: 20px;
+    background-color: white;
+    border: 1px solid lightgray;
+  }
+
+  button:hover {
+    border: 1px solid $mainBlue;
+    cursor: pointer;
+  }
+
+  button:focus {
+    outline: none;
+  }
+}

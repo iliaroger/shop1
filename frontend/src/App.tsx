@@ -3,12 +3,14 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import ProductsView from './views/ProductsView';
 import CartView from './views/CartView';
 import DetailedProductView from './views/DetailedProductView';
+import ProfileView from './views/UserProfileView';
 
 function App(): JSX.Element {
   return (
     <React.Fragment>
       <BrowserRouter>
         <Switch>
+          <Route path="/profile" exact component={ProfileView}></Route>
           <Route
             exact
             path="/product/:id"

@@ -7,6 +7,8 @@ const cartHandlers = require('../backend/routeHandlers/cartHandlers.js');
 const productsHandlers = require('../backend/routeHandlers/productsHandlers.js');
 require('dotenv').config();
 const profileHandlers = require('./routeHandlers/profileHandlers.js');
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const uri = `mongodb+srv://ilia:${process.env.MONGODB_PASSWORD}@shop1.useg0.mongodb.net/test?authSource=admin&replicaSet=atlas-dwg2jw-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true`;
 

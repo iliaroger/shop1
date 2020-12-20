@@ -6,6 +6,7 @@ import {
   PROFILE_LOGIN_FAIL,
   PROFILE_LOGIN_REQUEST,
   PROFILE_LOGIN_SUCCESS,
+  PROFILE_LOGOUT_SUCCESS,
 } from '../constants/profileConstants';
 
 export const registerAction = (
@@ -54,9 +55,14 @@ export const loginUserAction = (email: string, password: string) => async (
         password: password,
       },
     }).then((res) => {
-      if (res.data.auth) {
+      const { auth, firstName, lastName } = res.data;
+      if (auth) {
         dispatch({
           type: PROFILE_LOGIN_SUCCESS,
+          payload: {
+            firstName: firstName,
+            lastName: lastName,
+          },
         });
       } else {
         dispatch({
@@ -71,4 +77,10 @@ export const loginUserAction = (email: string, password: string) => async (
       });
     }
   }
+};
+
+export const userLogoutAction = () => (dispatch: any) => {
+  dispatch({
+    type: PROFILE_LOGOUT_SUCCESS,
+  });
 };

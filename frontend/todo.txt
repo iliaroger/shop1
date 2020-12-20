@@ -81,5 +81,46 @@ a rule of thumb is to aim at time spend hasing and not rounds that the password 
 if your server has enough processing power,
 then aim for around 240 milliseconds for hashing per password
 
+// jwt
 
+- npm i jsonwebtoken
+
+- jwt access and refresh tokens are issued when the user first logs in
+
+- create a middleware that validates the user before entering a protected route
+
+access and refresh token guide:
+
+1. When you do log in, send 2 tokens (Access token, Refresh token) in response to the client.
+
+2. The access token will have less expiry time and Refresh will have long expiry time.
+
+3. The client (Front end) will store refresh token in his local storage and access token in cookies.
+
+4. The client will use an access token for calling APIs. But when it expires, pick the refresh token from local storage and call auth server API to get the new token.
+
+5. Your auth server will have an API exposed which will accept refresh token and checks for its validity and return a new access token.
+
+6. Once the refresh token is expired, the User will be logged out.
+
+// paypal
+
+- create a client id and save it in an env variable 
+
+- create a script dom element which connects the application to paypal
+
+- when the script is ready, an async function will trigger. create a state and bound the response to it 
+
+- create a paypal button and disable it until the script file is ready. create a condition that checks whether or not the cart is empty and if so disable the button
+
+
+
+
+// jwt step process 
+
+- user logs in -> access and refresh token created and stored in the cookie with the http-only flag 
+
+- middleware will check the access token for its validity. if expired then the server will grab the refresh token, check the validity of it and generate a new access token. if any of the tokens has been tempered with, the server will logout the user 
+
+- on every protected route request, the server will validate the access token. if the access token is invalid or expired then grab the refresh token and generate a new access token. when the refresh token is invalid or expired then logout the user. 
 

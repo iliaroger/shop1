@@ -3,6 +3,8 @@ const expressAsyncHandler = require('express-async-handler');
 const profileHandler = express.Router();
 const User = require('../model/userModel.js');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { authTokens } = require('../routeHandlers/authHandlers.js');
 
 profileHandler.post(
   '/register',
@@ -41,16 +43,57 @@ profileHandler.post(
       const checkForProfile = await User.exists({ email: email });
       if (checkForProfile) {
         const getProfile = await User.find({ email: email });
-        const hashedPassword = getProfile.password;
+        const hashedPassword = getProfile[0].password;
         await bcrypt.compare(password, hashedPassword, (err, result) => {
           if (result) {
-            res.send({ auth: true });
+            // issue fresh access and refresh tokens to the user
+            const accessToken = jwt.sign(
+              {
+                firstName: getProfile[0].firstName,
+                lastName: getProfile[0].lastName,
+              },
+              process.env.JWT_ACCESS_SECRET,
+              {
+                expiresIn: '30s',
+              }
+            );
+
+            const refreshToken = jwt.sign(
+              {
+                firstName: getProfile[0].firstName,
+                lastName: getProfile[0].lastName,
+              },
+              process.env.JWT_REFRESH_SECRET,
+              {
+                expiresIn: '180s',
+              }
+            );
+
+            res.cookie('accessToken', accessToken, { httpOnly: true });
+            res.cookie('refreshToken', refreshToken, { httpOnly: true });
+
+            res.status(200).send({
+              auth: true,
+              firstName: getProfile[0].firstName,
+              lastName: getProfile[0].lastName,
+            });
           } else {
             res.send({ auth: false });
           }
         });
+      } else {
+        res.send({ auth: false });
       }
     } catch (err) {}
+  })
+);
+
+profileHandler.get(
+  '/testRoute',
+  authTokens,
+  expressAsyncHandler(async (req, res) => {
+    const headers = req.body;
+    res.end();
   })
 );
 

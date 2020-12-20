@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from '../styles/loginComponent.module.scss';
 import { registerAction, loginUserAction } from '../actions/profileActions';
 
@@ -13,6 +13,8 @@ export default function LoginComponent() {
   const [lastNameRegister, setLastNameRegister] = useState('');
   const [registerError, setRegisterError] = useState(false);
   const dispatch = useDispatch();
+  const userAuthState = useSelector((state: any) => state.login);
+  const { authenticated } = userAuthState;
 
   const checkRegisterSet = () => {
     if (
@@ -68,6 +70,15 @@ export default function LoginComponent() {
               >
                 Login
               </button>
+              {authenticated ? (
+                <>
+                  <p>User Authenticated</p>{' '}
+                </>
+              ) : (
+                <>
+                  <p>User not authenticated</p>
+                </>
+              )}
               <br></br>
               <p>New customer?</p>
               <h4

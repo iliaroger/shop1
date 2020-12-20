@@ -1,0 +1,32 @@
+/* basic layout styles */
+$mainBlue: #072ac8;
+$lightBlue: #1e96fc;
+
+.box {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.element {
+  align-self: center;
+  button {
+    border: 1px solid lightgray;
+    background-color: white;
+    color: $mainBlue;
+    width: 80px;
+    height: 30px;
+  }
+
+  button:hover {
+    border: 1px solid $mainBlue;
+  }
+
+  button:focus {
+    outline: none;
+  }
+}
+
+.buttonWrapper {
+  text-align: center;
+}

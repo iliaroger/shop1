@@ -2,7 +2,7 @@ const express = require('express');
 const expressAsyncHandler = require('express-async-handler');
 const Cart = require('../model/cartModel.js');
 const Products = require('../model/productsModel.js');
-const ObjectId = require('mongoose').Types.ObjectId;
+const { authTokens } = require('../routeHandlers/authHandlers.js');
 
 const cartRouter = express.Router();
 
@@ -55,15 +55,33 @@ cartRouter.post(
 
 cartRouter.get(
   '/',
+  authTokens,
   expressAsyncHandler(async (req, res) => {
-    try {
-      const cartData = await Cart.find({});
-      if (!cartData) {
-        return res.send('No products in cart');
+    const { auth, message } = res.locals.status;
+    if (!auth) {
+      res.send({
+        auth: false,
+        message: message,
+        data: [],
+      });
+    } else {
+      try {
+        const cartData = await Cart.find({});
+        if (!cartData) {
+          res.send({
+            auth: true,
+            message: message,
+            data: [],
+          });
+        }
+        res.send({
+          auth: true,
+          message: message,
+          data: cartData,
+        });
+      } catch (err) {
+        if (err) throw err;
       }
-      res.send(cartData);
-    } catch (err) {
-      if (err) throw err;
     }
   })
 );

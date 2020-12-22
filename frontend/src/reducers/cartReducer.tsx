@@ -28,7 +28,7 @@ export const cartReducer = (state = { loading: false }, action: any) => {
 };
 
 export const getCartReducer = (
-  state = { loading: false, cartData: [] },
+  state = { loading: false, data: { auth: false, message: '', data: [] } },
   action: any
 ) => {
   switch (action.type) {
@@ -38,7 +38,7 @@ export const getCartReducer = (
     case CART_GET_SUCCESS:
       return {
         loading: false,
-        cartData: action.payload.data,
+        data: action.payload,
       };
 
     case CART_GET_FAIL:

@@ -88,13 +88,4 @@ profileHandler.post(
   })
 );
 
-profileHandler.get(
-  '/testRoute',
-  authTokens,
-  expressAsyncHandler(async (req, res) => {
-    const headers = req.body;
-    res.end();
-  })
-);
-
 module.exports = profileHandler;

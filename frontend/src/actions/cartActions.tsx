@@ -58,10 +58,10 @@ export const getCart = () => async (dispatch: any) => {
     dispatch({
       type: CART_GET_REQUEST,
     });
-    await Axios.get('/api/cart').then((data) => {
+    await Axios.get('/api/cart/').then((res) => {
       dispatch({
         type: CART_GET_SUCCESS,
-        payload: data,
+        payload: res.data,
       });
     });
   } catch (err) {

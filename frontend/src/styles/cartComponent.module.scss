@@ -49,6 +49,13 @@ $darkYellow: #ffc600;
   }
 }
 
+.loginMessage {
+  text-align: center;
+  font-size: 1.6rem;
+  align-self: center;
+  font-weight: 300;
+}
+
 .checkoutPrice {
   font-size: 2rem;
 }
@@ -62,6 +69,8 @@ $darkYellow: #ffc600;
 
   .buttonGroup {
     text-align: center;
+    height: 50%;
+    width: 100%;
 
     button {
       background-color: white;

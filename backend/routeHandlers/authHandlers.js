@@ -29,9 +29,11 @@ const authTokens = (req, res, next) => {
     );
 
     if (accessTokenValid && refreshTokenValid) {
-      res.status(200).send('user authorized');
+      res.locals.status = {
+        auth: true,
+        message: 'user has been authorized',
+      };
     } else if (!accessTokenValid && refreshTokenValid) {
-      console.log('access token invalid');
       const { firstName, lastName } = jwt.decode(accessToken);
       const newAccessToken = jwt.sign(
         {
@@ -42,11 +44,15 @@ const authTokens = (req, res, next) => {
         { expiresIn: '30s' }
       );
       res.cookie('accessToken', newAccessToken, { httpOnly: true });
-      res.status(201).send('a new access token has been issued');
+      res.locals.status = {
+        auth: true,
+        message: 'a new access token has been issued',
+      };
     } else {
-      res.status(401).json({
+      res.locals.status = {
         auth: false,
-      });
+        message: 'access denied',
+      };
     }
   } catch (err) {
     if (err) throw err;
